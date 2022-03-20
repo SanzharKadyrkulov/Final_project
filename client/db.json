@@ -561,6 +561,105 @@
       "totalPrice": 196,
       "date": "9/29/2021, 1:10:56 AM",
       "id": 1
+    },
+    {
+      "products": [
+        {
+          "item": {
+            "id": 4,
+            "title": "Deadpool",
+            "describtion": "Deadpool is a fictional character appearing in American comic books published by Marvel Comics. Created by writer Fabian Nicieza and artist/writer Rob Liefeld, the character first appeared in The New Mutants #98 (cover-dated February 1991). Initially, Deadpool was depicted as a supervillain when he made his first appearance in The New Mutants and later in issues of X-Force, \nbut later evolved into his more recognizable antiheroic persona. Deadpool, whose real name is Wade Winston Wilson, is adisfigured mercenary with the superhuman ability of regeneration and physical prowess.",
+            "type": "Antihero",
+            "image": "https://cdnb.artstation.com/p/assets/images/images/017/091/329/large/diana-greenhalgh-deadpoolfinal.jpg?1554611618",
+            "price": 69,
+            "createdAt": "2021-09-29T08:20:01.324Z",
+            "updatedAt": "2021-09-29T08:20:01.324Z",
+            "comments": [],
+            "ratings": [],
+            "likes": []
+          },
+          "count": "3",
+          "subPrice": 207
+        },
+        {
+          "item": {
+            "id": 6,
+            "title": "Black panther",
+            "describtion": "Black Panther is a 2018 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 18th film in the Marvel Cinematic Universe (MCU). The film was directed by Ryan Coogler, who co-wrote the screenplay with Joe Robert Cole, and it stars Chadwick Boseman as T'Challa / Black Panther alongside Michael B. Jordan, Lupita Nyong'o, Danai Gurira, Martin Freeman, Daniel Kaluuya, Letitia Wright, Winston Duke, Angela Bassett, Forest Whitaker, and Andy Serkis. In Black Panther, T'Challa is crowned king of Wakanda following his father's death, but he is challenged by Killmonger (Jordan) who plans to abandon the country's isolationist policies and begin a global revolution.",
+            "type": "Hero",
+            "image": "https://cdn.europosters.eu/image/750/posters/captain-america-civil-war-black-panther-i30607.jpg",
+            "price": 93,
+            "createdAt": "2021-09-29T08:22:09.213Z",
+            "updatedAt": "2021-09-29T08:22:09.213Z",
+            "comments": [],
+            "ratings": [],
+            "likes": []
+          },
+          "count": 1,
+          "subPrice": 93
+        }
+      ],
+      "totalPrice": 300,
+      "date": "10/1/2021, 4:14:52 PM",
+      "id": 2
+    },
+    {
+      "products": [
+        {
+          "item": {
+            "id": 4,
+            "title": "Deadpool",
+            "describtion": "Deadpool is a fictional character appearing in American comic books published by Marvel Comics. Created by writer Fabian Nicieza and artist/writer Rob Liefeld, the character first appeared in The New Mutants #98 (cover-dated February 1991). Initially, Deadpool was depicted as a supervillain when he made his first appearance in The New Mutants and later in issues of X-Force, \nbut later evolved into his more recognizable antiheroic persona. Deadpool, whose real name is Wade Winston Wilson, is adisfigured mercenary with the superhuman ability of regeneration and physical prowess.",
+            "type": "Antihero",
+            "image": "https://cdnb.artstation.com/p/assets/images/images/017/091/329/large/diana-greenhalgh-deadpoolfinal.jpg?1554611618",
+            "price": 69,
+            "createdAt": "2021-09-29T08:20:01.324Z",
+            "updatedAt": "2021-09-29T08:20:01.324Z",
+            "comments": [],
+            "ratings": [],
+            "likes": []
+          },
+          "count": "3",
+          "subPrice": 207
+        },
+        {
+          "item": {
+            "id": 6,
+            "title": "Black panther",
+            "describtion": "Black Panther is a 2018 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 18th film in the Marvel Cinematic Universe (MCU). The film was directed by Ryan Coogler, who co-wrote the screenplay with Joe Robert Cole, and it stars Chadwick Boseman as T'Challa / Black Panther alongside Michael B. Jordan, Lupita Nyong'o, Danai Gurira, Martin Freeman, Daniel Kaluuya, Letitia Wright, Winston Duke, Angela Bassett, Forest Whitaker, and Andy Serkis. In Black Panther, T'Challa is crowned king of Wakanda following his father's death, but he is challenged by Killmonger (Jordan) who plans to abandon the country's isolationist policies and begin a global revolution.",
+            "type": "Hero",
+            "image": "https://cdn.europosters.eu/image/750/posters/captain-america-civil-war-black-panther-i30607.jpg",
+            "price": 93,
+            "createdAt": "2021-09-29T08:22:09.213Z",
+            "updatedAt": "2021-09-29T08:22:09.213Z",
+            "comments": [],
+            "ratings": [],
+            "likes": []
+          },
+          "count": 1,
+          "subPrice": 93
+        },
+        {
+          "item": {
+            "id": 7,
+            "title": "Mc Thanos",
+            "describtion": "Thanos is a fictional character appearing in American comic books published by Marvel Comics. He was created by writer-artist Jim Starlin, and made his first appearance in The Invincible Iron Man #55 (cover dated February 1973). An Eternal–Deviant warlord from the moon Titan, Thanos is regarded as one of the most powerful beings in the Marvel Universe. He has clashed with many heroes including the Avengers, the Guardians of the Galaxy, the Fantastic Four, and the X-Men.",
+            "type": "Evil",
+            "image": "https://cdn.wallpapersafari.com/53/8/FulJWD.jpg",
+            "price": 99,
+            "createdAt": "2021-09-29T08:23:24.620Z",
+            "updatedAt": "2021-09-29T08:23:24.620Z",
+            "comments": [],
+            "ratings": [],
+            "likes": []
+          },
+          "count": "2",
+          "subPrice": 198
+        }
+      ],
+      "totalPrice": 498,
+      "date": "10/2/2021, 9:15:08 PM",
+      "id": 3
     }
   ],
   "browsinHistory": [
@@ -590,7 +689,12 @@
         9,
         7,
         6,
-        1
+        1,
+        2,
+        3,
+        8,
+        2,
+        3
       ],
       "id": 1
     }

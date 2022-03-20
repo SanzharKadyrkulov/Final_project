@@ -283,238 +283,268 @@
 
 // export default ProductComments;
 
-import React, { useRef, useState } from "react";
-import { TextField, Button, makeStyles } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import SendIcon from "@material-ui/icons/Send";
-import SaveIcon from "@material-ui/icons/Save";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import HeaderLayout from "../../layouts/HeaderLayout";
+import React, { useRef, useState } from 'react';
+import { TextField, Button, makeStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import SendIcon from '@material-ui/icons/Send';
+import SaveIcon from '@material-ui/icons/Save';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import HeaderLayout from '../../layouts/HeaderLayout';
 
 const useStyles = makeStyles((theme) => ({
-  input: {
-    color: "#000",
-    borderRightColor: "#FFF",
-  },
-  input__label: {
-    color: "#e96a1b",
-    borderRightColor: "#FFF",
-  },
+	input: {
+		color: '#000',
+		borderRightColor: '#FFF',
+	},
+	input__label: {
+		color: '#e96a1b',
+		borderRightColor: '#FFF',
+	},
 }));
 const ProductComments = () => {
-  const classes = useStyles();
-  const [messages, setMessages] = useState([]);
-  const [value, setValue] = useState("");
-  const socket = useRef();
-  const [connected, setConnected] = useState(false);
-  const [username, setUsername] = useState("");
+	const classes = useStyles();
+	const [messages, setMessages] = useState([]);
+	const [value, setValue] = useState('');
+	const socket = useRef();
+	const [connected, setConnected] = useState(false);
+	const [username, setUsername] = useState('');
 
-  function connect() {
-    socket.current = new WebSocket("ws://localhost:5000");
+	function connect() {
+		socket.current = new WebSocket('ws://localhost:5000');
 
-    socket.current.onopen = () => {
-      setConnected(true);
-      const message = {
-        event: "connection",
-        username,
-        id: Date.now(),
-      };
-      socket.current.send(JSON.stringify(message));
-    };
-    socket.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      setMessages((prev) => [message, ...prev]);
-    };
-    socket.current.onclose = () => {
-      console.log("Socket закрыт");
-    };
-    socket.current.onerror = () => {
-      console.log("Socket произошла ошибка");
-    };
-  }
+		socket.current.onopen = () => {
+			setConnected(true);
+			const message = {
+				event: 'connection',
+				username,
+				id: Date.now(),
+			};
+			socket.current.send(JSON.stringify(message));
+		};
+		socket.current.onmessage = (event) => {
+			const message = JSON.parse(event.data);
+			setMessages((prev) => [...prev, message]);
+		};
+		socket.current.onclose = () => {
+			console.log('Socket закрыт');
+		};
+		socket.current.onerror = () => {
+			console.log('Socket произошла ошибка');
+		};
+	}
 
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    e.target.parentNode.firstChild.lastChild.firstChild.value = "";
-    const message = {
-      username,
-      message: value,
-      id: Date.now(),
-      event: "message",
-      date: new Date().toLocaleString(),
-    };
-    socket.current.send(JSON.stringify(message));
-    setValue("");
-  };
+	const sendMessage = async (e) => {
+		e.preventDefault();
+		e.target.parentNode.firstChild.lastChild.firstChild.value = '';
+		const message = {
+			username,
+			message: value,
+			id: Date.now(),
+			event: 'message',
+			date: new Date().toLocaleString(),
+		};
+		socket.current.send(JSON.stringify(message));
+		setValue('');
+	};
 
-  let loginContainer = {
-    padding: "60px",
-    margin: "auto",
-    width: "100%",
-    maxWidth: "550px",
-    minHeight: "600px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    // backgroundImage: `url(${"https://d2cstorage-a.akamaihd.net/atl/21pilots/livestream/bk-21.jpg"})`,
-    background: "#ecd694",
-    boxShadow: "0 40px 60px -20px rgba(0, 0, 0, 0.8)",
-    borderRadius: "45px",
-  };
+	let loginContainer = {
+		padding: '60px',
+		margin: 'auto',
+		width: '100%',
+		maxWidth: '550px',
+		minHeight: '600px',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		// backgroundImage: `url(${"https://d2cstorage-a.akamaihd.net/atl/21pilots/livestream/bk-21.jpg"})`,
+		background: '#ecd694',
+		boxShadow: '0 40px 60px -20px rgba(0, 0, 0, 0.8)',
+		borderRadius: '45px',
+	};
 
-  const marginOfComment = (mess) => {
-    if (username === mess.username) {
-      return {
-        marginLeft: "85px",
-        width: "350px",
-        background: "#f9eabd",
-        borderRadius: "10px",
-        padding: "2px",
-        marginTop: "5px",
-      };
-    } else {
-      return {
-        width: "350px",
-        background: "#f9eabd",
-        borderRadius: "10px",
-        padding: "2px",
-        marginTop: "5px",
-      };
-    }
-  };
+	const marginOfComment = (mess) => {
+		if (username === mess.username) {
+			return {
+				marginLeft: '85px',
+				width: '350px',
+				background: '#f9eabd',
+				borderRadius: '10px',
+				padding: '2px',
+				marginTop: '5px',
+			};
+		} else {
+			return {
+				width: '350px',
+				background: '#f9eabd',
+				borderRadius: '10px',
+				padding: '2px',
+				marginTop: '5px',
+			};
+		}
+	};
+	const lastRef = useRef();
+	const listRef = useRef();
+	const scrollToBottom = () => {
+		lastRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	};
 
-  if (!connected) {
-    return (
-      <div className="center">
-        <div className="form">
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            placeholder="Введите ваше имя"
-          />
-          <button onClick={connect}>Войти</button>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <>
-      <HeaderLayout>
-        <Paper style={loginContainer} spacing={2}>
-          <h1 style={{ position: "absolute", top: "110px" }}>Let's chat!</h1>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                {messages.map((mess) => (
-                  <div key={mess.id}>
-                    {mess.event === "connection" ? (
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "gray",
-                        }}
-                      >
-                        <span>
-                          Пользователь{" "}
-                          <span style={{ color: "#d28036" }}>
-                            {mess.username}
-                          </span>{" "}
-                          подключился
-                        </span>
-                      </div>
-                    ) : (
-                      <div style={marginOfComment(mess)}>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                          }}
-                        >
-                          <p style={{ color: "#d28036" }}>{mess.username}</p>
-                          <p
-                            style={{
-                              fontSize: "12px",
-                              color: "gray",
-                              marginLeft: "10px",
-                            }}
-                          >
-                            {mess.date}
-                          </p>
-                        </div>
-                        <div>
-                          <p style={{ color: "#000", marginBottom: "2px" }}>
-                            {mess.message}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <form style={{ marginTop: "6px" }}>
-                  <TextField
-                    variant="outlined"
-                    label="Message"
-                    color="secondary"
-                    style={{ width: "83%" }}
-                    onChange={(e) => setValue(e.target.value)}
-                    InputLabelProps={{ className: classes.input__label }}
-                    inputProps={{ className: classes.input }}
-                  />
-                  <Button
-                    type="submit  "
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-haspopup="true"
-                    onClick={(e) => sendMessage(e)}
-                  >
-                    <SendIcon style={{ color: "#e96a1b" }} />
-                  </Button>
-                </form>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
-      </HeaderLayout>
-    </>
-  );
+	if (!connected) {
+		return (
+			<div style={{ width: '100%' }}>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						connect();
+					}}
+					style={{ margin: '25px auto', width: 'fit-content' }}
+				>
+					<input
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						type='text'
+						placeholder='Введите ваше имя'
+					/>
+					<button type='submit'>Войти</button>
+				</form>
+			</div>
+		);
+	}
+	return (
+		<>
+			<HeaderLayout>
+				<Paper style={loginContainer} spacing={2}>
+					<h1 style={{ position: 'absolute', top: '110px' }}>Let's chat!</h1>
+					<Grid item xs={12} sm container>
+						<Grid item xs container direction='column' spacing={2}>
+							<Grid
+								className='no-scroll'
+								style={{ overflow: 'scroll' }}
+								item
+								xs
+								ref={listRef}
+							>
+								{messages.map((mess) => (
+									<div key={mess.id}>
+										{mess.event === 'connection' ? (
+											<div
+												style={{
+													display: 'flex',
+													flexDirection: 'row',
+													alignItems: 'center',
+													justifyContent: 'center',
+													color: 'gray',
+												}}
+											>
+												<span>
+													Пользователь{' '}
+													<span style={{ color: '#d28036' }}>
+														{mess.username}
+													</span>{' '}
+													подключился
+												</span>
+											</div>
+										) : (
+											<div style={marginOfComment(mess)}>
+												<div
+													style={{
+														display: 'flex',
+														flexDirection: 'row',
+														alignItems: 'center',
+														justifyContent: 'flex-start',
+													}}
+												>
+													<p style={{ color: '#d28036' }}>{mess.username}</p>
+													<p
+														style={{
+															fontSize: '12px',
+															color: 'gray',
+															marginLeft: '10px',
+														}}
+													>
+														{mess.date}
+													</p>
+												</div>
+												<div>
+													<p style={{ color: '#000', marginBottom: '2px' }}>
+														{mess.message}
+													</p>
+												</div>
+											</div>
+										)}
+									</div>
+								))}
+								<div style={{ position: 'relative' }}>
+									<div
+										ref={lastRef}
+										style={{ position: 'absolute', top: '100px', left: 0 }}
+									></div>
+								</div>
+							</Grid>
+							<form style={{ marginTop: '6px' }}>
+								<TextField
+									variant='outlined'
+									label='Message'
+									color='secondary'
+									style={{ width: '83%' }}
+									value={value}
+									onChange={(e) =>
+										value.length < 35 && setValue(e.target.value)
+									}
+									InputLabelProps={{ className: classes.input__label }}
+									inputProps={{ className: classes.input }}
+								/>
+								<Button
+									type='submit  '
+									edge='end'
+									aria-label='account of current user'
+									aria-haspopup='true'
+									onClick={(e) => {
+										e.preventDefault();
+										setTimeout(scrollToBottom, 100);
+										value && sendMessage(e);
+									}}
+								>
+									<SendIcon style={{ color: '#e96a1b' }} />
+								</Button>
+							</form>
+						</Grid>
+					</Grid>
+				</Paper>
+			</HeaderLayout>
+		</>
+	);
 
-  // return (
-  //   <div className="center">
-  //     <div>
-  //       <div className="form">
-  //         <input
-  //           value={value}
-  //           onChange={(e) => setValue(e.target.value)}
-  //           type="text"
-  //         />
-  //         <button onClick={sendMessage}>Отправить</button>
-  //       </div>
-  //       <div className="messages">
-  //         {messages.map((mess) => (
-  //           <div key={mess.id}>
-  //             {mess.event === "connection" ? (
-  //               <div className="connection_message">
-  //                 Пользователь {mess.username} подключился
-  //               </div>
-  //             ) : (
-  //               <div className="message">
-  //                 {mess.username}. {mess.message}
-  //               </div>
-  //             )}
-  //           </div>
-  //         ))}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+	// return (
+	//   <div className="center">
+	//     <div>
+	//       <div className="form">
+	//         <input
+	//           value={value}
+	//           onChange={(e) => setValue(e.target.value)}
+	//           type="text"
+	//         />
+	//         <button onClick={sendMessage}>Отправить</button>
+	//       </div>
+	//       <div className="messages">
+	//         {messages.map((mess) => (
+	//           <div key={mess.id}>
+	//             {mess.event === "connection" ? (
+	//               <div className="connection_message">
+	//                 Пользователь {mess.username} подключился
+	//               </div>
+	//             ) : (
+	//               <div className="message">
+	//                 {mess.username}. {mess.message}
+	//               </div>
+	//             )}
+	//           </div>
+	//         ))}
+	//       </div>
+	//     </div>
+	//   </div>
+	// );
 };
 
 export default ProductComments;

@@ -2,10 +2,6 @@ const ErrorHandler = require("../utils/ErrorHandler");
 
 const checkRole = () => {
   return (req, res, next) => {
-    if (req.method === "OPTIONS") {
-      next();
-    }
-
     try {
       const { user } = req;
       console.log(user);

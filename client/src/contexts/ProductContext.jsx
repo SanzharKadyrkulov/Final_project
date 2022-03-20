@@ -27,7 +27,7 @@ const reducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         productsData: action.payload.data.rows.sort((a, b) => a.id - b.id),
-        pages: Math.ceil(action.payload.data.count / PRODUCTLIMIT),
+        pages: Math.ceil((action.payload.data.count - 4) / PRODUCTLIMIT),
       };
     case ACTIONS.GET_PRODUCT_DETAILS:
       return { ...state, productDetails: action.payload };
@@ -53,7 +53,7 @@ const ProductContextProvider = ({ children }) => {
     const res = await axios.get(
       `${JSON_API_PRODUCTS}/${window.location.search}`
     );
-    console.log("res:", res);
+    console.log("res:", res.data.count);
     dispatch({
       type: ACTIONS.GET_PRODUCTS,
       payload: res,
